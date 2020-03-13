@@ -1,9 +1,9 @@
 window.onload =function(){
-    var marcadorTeste = document.getElementById("ba");
-    console.log("Fudeu geral");
-    marcadorTeste.addEventListener("markerFound",function(){
-        alert("Achou");
-    });
+    var marcadorA = document.getElementById("A");
+    var marcadorA = document.getElementById("BA");
+    var marcadorA = document.getElementById("CA");
+    var marcadorA = document.getElementById("TE");
+    
     
 }
 
