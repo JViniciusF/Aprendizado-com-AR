@@ -50,8 +50,6 @@
       };
     };
     startBtn.addEventListener('click', () => start());
-    addEventListener()
-    
 
 
   })();
