@@ -51,8 +51,11 @@
       };
     };
     startBtn.addEventListener('click', () => start());
+<<<<<<< HEAD
     //addEventListener()
     
+=======
+>>>>>>> 6db12b38140d1cc152f82091537dd078cb6ab747
 
 
   })();
