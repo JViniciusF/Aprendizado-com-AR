@@ -2,45 +2,130 @@
 <!doctype HTML>
 <html>
   <head>
-    <meta charset = "utf-8">
-    <script src="indexAbct.js"></script>
     <script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/jeromeetienne/AR.js/2.2.2/aframe/build/aframe-ar.js"></script>
+    <script src="https://unpkg.com/aframe-aabb-collider-component@3.1.0/dist/aframe-aabb-collider-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@^4.0.0/dist/aframe-event-set-component.min.js"></script>
+    <spript src=""
   </head>
-    <body>
-    <a-scene embedded arjs>
-      <a-marker id= "A" type = "pattern" url = "https://raw.githubusercontent.com/JViniciusF/Aprendizado-com-AR/master/Palavras%20e%20Markers/Marcadores/Abacate/pattern-A.patt">
-        <a-entity
-			gltf-model="url(https://raw.githubusercontent.com/JViniciusF/Aprendizado-com-AR/master/Palavras%20e%20Markers/Letras-gltf/Abacate/A.gltf)"
-			position="0 0 0"
-			rotation="0 0 0"></a-entity>
-      </a-marker>
-      
-      <a-marker id= "BA" type = "pattern" url = "https://raw.githubusercontent.com/JViniciusF/Aprendizado-com-AR/master/Palavras%20e%20Markers/Marcadores/Abacate/pattern-BA.patt">
-        <a-entity
+
+<body>
+  <a-scene embedded arjs>
+    <a-entity hand-controls="right"></a-entity>
+    <a-marker id= "A" type = "pattern" url = "https://raw.githubusercontent.com/JViniciusF/Aprendizado-com-AR/master/Palavras%20e%20Markers/Marcadores/Abacate/pattern-A.patt"  
+      aabb-collider = "objects: #BA">
+      <a-entity id = "A-obj" 
+        gltf-model="url(https://raw.githubusercontent.com/JViniciusF/Aprendizado-com-AR/master/Palavras%20e%20Markers/Letras-gltf/Abacate/A.gltf)"
+        position="0 0 0"
+        rotation="0 0 0"
+        scale="1.5 1.5 1.5"
+        treeman>
+      </a-entity>  
+    </a-marker>
+    
+    <a-marker id= "BA"  type = "pattern" url = "https://raw.githubusercontent.com/JViniciusF/Aprendizado-com-AR/master/Palavras%20e%20Markers/Marcadores/Abacate/pattern-BA.patt"
+    aabb-collider = "objects: #A">
+      <a-entity id = "BA-obj"
+        
         gltf-model="url(https://raw.githubusercontent.com/JViniciusF/Aprendizado-com-AR/master/Palavras%20e%20Markers/Letras-gltf/Abacate/BA.gltf)"
         position="0 0 0"
-        rotation="0 0 0"></a-entity>
-        </a-marker>
-      </a-marker>
-      
-      <a-marker id= "CA" type = "pattern" url = "https://raw.githubusercontent.com/JViniciusF/Aprendizado-com-AR/master/Palavras%20e%20Markers/Marcadores/Abacate/pattern-CA.patt">
-        <a-entity
-        gltf-model="url(https://raw.githubusercontent.com/JViniciusF/Aprendizado-com-AR/master/Palavras%20e%20Markers/Letras-gltf/Abacate/CA.gltf)"
-        position="0 0 0"
-        rotation="0 0 0"></a-entity>
-      </a-marker>
-      
-      <a-marker id= "TE" type = "pattern" url = "https://raw.githubusercontent.com/JViniciusF/Aprendizado-com-AR/master/Palavras%20e%20Markers/Marcadores/Abacate/pattern-TE.patt">
-        <a-entity
-        gltf-model="url(https://raw.githubusercontent.com/JViniciusF/Aprendizado-com-AR/master/Palavras%20e%20Markers/Letras-gltf/Abacate/TE.gltf)"
-        position="0 0 0"
-        rotation="0 0 0"></a-entity>
-      </a-marker>
+        rotation="0 0 0"
+        scale="1.2 1.2 1.2"
+        Encontrar
 
-      <a-entity camera></a-entity>
-    </a-scene>
+      ></a-entity>
+    </a-marker>
     
-  </body>
+    <a-marker id= "CA" type = "pattern" url = "https://raw.githubusercontent.com/JViniciusF/Aprendizado-com-AR/master/Palavras%20e%20Markers/Marcadores/Abacate/pattern-CA.patt"
+    aabb-collider = "objects:#TE"
+      <a-entity id = "CA-obj"
+      gltf-model="url(https://raw.githubusercontent.com/JViniciusF/Aprendizado-com-AR/master/Palavras%20e%20Markers/Letras-gltf/Abacate/CA.gltf)"
+      position="0 0 0"
+      rotation="0 0 0"
+      scale = "1.2 1.2 1.2">
+    </a-entity>
+    
+    </a-marker>
+    
+    <a-marker id= "TE" type = "pattern" url = "https://raw.githubusercontent.com/JViniciusF/Aprendizado-com-AR/master/Palavras%20e%20Markers/Marcadores/Abacate/pattern-TE.patt">
+    
+      <a-entity id = "TE-obj"
+      gltf-model="url(https://raw.githubusercontent.com/JViniciusF/Aprendizado-com-AR/master/Palavras%20e%20Markers/Letras-gltf/Abacate/TE.gltf)"
+      position="0 0 0"
+      rotation="0 0 0"
+      scale = "1.2 1.2 1.2"
+    ></a-entity>
+    </a-marker>
 
+    <a-entity camera></a-entity>
+  </a-scene>
+</body>
+<script>
+   
+   AFRAME.registerComponent('treeman', {
+            init: function(){
+                let el = this.el;
+                let self = this;
+                self.trees = [];              
+                el.addEventListener("model-loaded", e =>{
+                    let tree3D = el.getObject3D('mesh');
+                    if (!tree3D){return;}    
+                  console.log('tree3D', tree3D);
+                    tree3D.traverse(function(node){
+                        if (node.isMesh){   
+                          console.log(node);
+                            self.trees.push(node);
+                          if(node.name == "Trunk_A"){
+                            self.treeMat = node.material;
+                          }
+                          node.material.map = null;
+                        }
+                    });
+              });
+              el.addEventListener('changecolor', e =>{               
+                let colorp = e.detail.color;
+                let colorHex = Number(colorp.replace('#', '0x'));
+                let color3D = new THREE.Color(colorHex);
+                self.treeMat.color = color3D;                
+              });
+            }
+          
+        });
+         AFRAME.registerComponent('Encontrar', {
+            init: function () {
+              // Listen for click event
+              let self = this;
+              let el = this.el;
+              this.el.addEventListener('hitstart', function (evt) {   
+                // Call the Octahedron and trigger it's scalewave animation
+                let tree = document.querySelector('#tree');
+                let color = el.getAttribute('material', '#d90e00');
+               tree.emit('changecolor', color);
+              });        
+            }
+           
+          });
+          
+  function start() {
+      
+      const scene = document.querySelector('a-scene')
+      
+      const A =scene.querySelector('#A');
+      const AObj =document.querySelector('#A-obj');
+      
+      const BA = scene.querySelector("#BA")
+      const BAObj = scene.querySelector("#BA-obj")
+
+      A.addEventListener("hitstart",function(){
+        AObj.dispatchEvent(changecolor("#05E313"));
+        console.log('teste')
+      })
+      BA.addEventListener("hitstart",function(){
+        console.log(BAObj);
+      })
+
+  }
+  document.addEventListener("DOMContentLoaded",start())
+
+  </script>
 </html>

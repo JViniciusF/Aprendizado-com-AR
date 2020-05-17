@@ -1,6 +1,7 @@
 (() => {
     const startBtn = document.querySelector('#start');
     const output = document.querySelector('#output');
+    console.log(startBtn,output)
     function start() {
       const recognition = new webkitSpeechRecognition();
       recognition.interimResults = true;
@@ -50,7 +51,7 @@
       };
     };
     startBtn.addEventListener('click', () => start());
-    addEventListener()
+    //addEventListener()
     
 
 
