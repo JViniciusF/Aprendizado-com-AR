@@ -3,157 +3,83 @@
   <head>
     <script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/jeromeetienne/AR.js/2.2.2/aframe/build/aframe-ar.js"></script>
-    <script src="https://unpkg.com/aframe-aabb-collider-component@3.1.0/dist/aframe-aabb-collider-component.min.js"></script>
-    <script src="https://unpkg.com/aframe-event-set-component@^4.0.0/dist/aframe-event-set-component.min.js"></script>
-    <!-- <spript src="" ></spript> -->
   </head>
 <body>
-    <div id="ABA"></div>
-    <div id="ABACA"></div>
-    <div id="ABACATE"></div>
-
+  <p id='output' type="text" style='display: none;'></p>
   <a-scene embedded arjs>
-    <a-entity hand-controls="right"></a-entity>
-    <a-marker id= "A" type = "pattern" url = "https://raw.githubusercontent.com/JViniciusF/Aprendizado-com-AR/master/Palavras%20e%20Markers/Marcadores/Abacate/pattern-A.patt"  
-      aabb-collider = "objects: #BA">
-      <a-entity id = "A-obj" 
-        gltf-model="url(https://raw.githubusercontent.com/JViniciusF/Aprendizado-com-AR/master/Palavras%20e%20Markers/Letras-gltf/Abacate/A.gltf)"
-        position="0 0 0"
-        rotation="0 0 0"
-        scale="1.5 1.5 1.5"
-        treeman>
-      </a-entity>  
-    </a-marker>
-    
-        
-
-      <a-marker id="BA" type="pattern"
-        url="https://raw.githubusercontent.com/JViniciusF/Aprendizado-com-AR/master/Palavras%20e%20Markers/Marcadores/Abacate/pattern-BA.patt"
-        aabb-collider="objects: #CA">
-        <a-entity id="BA-obj"
-          gltf-model="url(https://raw.githubusercontent.com/JViniciusF/Aprendizado-com-AR/master/Palavras%20e%20Markers/Letras-gltf/Abacate/BA.gltf)"
-          position="0 0 0" rotation="0 0 0" scale="1.2 1.2 1.2" Encontrar>
-        </a-entity>
-    </a-marker>
-    
-      <a-marker id="CA" type="pattern"
-        url="https://raw.githubusercontent.com/JViniciusF/Aprendizado-com-AR/master/Palavras%20e%20Markers/Marcadores/Abacate/pattern-CA.patt"
-        aabb-collider="objects:#TE">
-        <a-entity id="CA-obj"
-      gltf-model="url(https://raw.githubusercontent.com/JViniciusF/Aprendizado-com-AR/master/Palavras%20e%20Markers/Letras-gltf/Abacate/CA.gltf)"
-          position="0 0 0" rotation="0 0 0" scale="1.2 1.2 1.2">
+    <a-entity camera look-controls>
+      <a-image id="certo"></a-image>
+      <a-image id="errado"></a-image>
     </a-entity>
-    </a-marker>
     
-      <a-marker id="TE" type="pattern"
-        url="https://raw.githubusercontent.com/JViniciusF/Aprendizado-com-AR/master/Palavras%20e%20Markers/Marcadores/Abacate/pattern-TE.patt">
-    
-        <a-entity id="TE-obj"
-      gltf-model="url(https://raw.githubusercontent.com/JViniciusF/Aprendizado-com-AR/master/Palavras%20e%20Markers/Letras-gltf/Abacate/TE.gltf)"
-          position="0 0 0" rotation="0 0 0" scale="1.2 1.2 1.2"></a-entity>
+    <a-marker id="A" type="pattern" url="https://raw.githubusercontent.com/JViniciusF/Aprendizado-com-AR/master/Palavras%20e%20Markers/Marcadores/Abacate/pattern-A.patt">
+      <a-entity 
+      gltf-model="../../Palavras e Markers/Objetos/Abacate/avocado.gltf" 
+      position="0 0 -0.3" 
+      rotation="2 -35 0"
+      scale="30 30 30"
+      >
+      </a-entity>
     </a-marker>
-
-    <a-entity camera></a-entity>
   </a-scene>
 </body>
-    
-<script>
-      // AFRAME.registerComponent('treeman', {
-      //   init: function () {
-      //     let el = this.el;
-      //     let self = this;
-      //     self.trees = [];
-      //     el.addEventListener("model-loaded", e => {
-      //       let tree3D = el.getObject3D('mesh');
-      //       if (!tree3D) {
-      //         return;
-      //       }
-      //       console.log('tree3D', tree3D);
-      //       tree3D.traverse(function (node) {
-      //         if (node.isMesh) {
-      //           console.log(node);
-      //           self.trees.push(node);
-      //           if (node.name == "Trunk_A") {
-      //             self.treeMat = node.material;
-      //           }
-      //           node.material.map = null;
-      //         }
-      //       });
-      //     });
-      //     el.addEventListener('changecolor', e => {
-      //       let colorp = e.detail.color;
-      //       let colorHex = Number(colorp.replace('#', '0x'));
-      //       let color3D = new THREE.Color(colorHex);
-      //       self.treeMat.color = color3D;
-      //     });
-      //   }
-   
-      // });
-      // AFRAME.registerComponent('Encontrar', {
-      //   init: function () {
-      //     // Listen for click event
-      //     let self = this;
-      //     let el = this.el;
-      //     this.el.addEventListener('hitstart', function (evt) {
-      //       // Call the Octahedron and trigger it's scalewave animation
-      //       let tree = document.querySelector('#tree');
-      //       let color = el.getAttribute('material', '#d90e00');
-      //       tree.emit('changecolor', color);
-      //     });
-      //   }
-           
-      // });
-          
-  function start() {
-      const scene = document.querySelector('a-scene')
-      
-        const A = scene.querySelector('#A');
-        const AObj = document.querySelector('#A-obj');
-      
-      const BA = scene.querySelector("#BA")
-      const BAObj = scene.querySelector("#BA-obj")
+  <script>
+    function certo() {
+      var certo = document.getElementById("certo");
+      var back = document.getElementById("button");
+      certo.setAttribute('src', '../../Palavras e Markers/Imagens/right.png');
+      certo.setAttribute('position', '0 0 -3');
+    };
+    function errado() {
+      var errado = document.getElementById("errado");
+      errado.setAttribute('src', '../../Palavras e Markers/Imagens/error.png');
+      errado.setAttribute('position', '0 0 -3');
+    };
+    function erase(){
+      var certo = document.getElementById("certo");
+      var errado = document.getElementById("errado");
+      certo.setAttribute('src', '');
+      certo.setAttribute('position', '0 0 0');
+      errado.setAttribute('src', '');
+      errado.setAttribute('position', '0 0 0');
+    }
 
-        const CA = scene.querySelector("#CA")
-        const CAObj = scene.querySelector("#CA-Obj")
+    function start() {
+      const recognition = new webkitSpeechRecognition();
+      recognition.interimResults = true;
+      recognition.lang = "pt-BR";
+      recognition.continuous = true;
+      recognition.start();
 
-        const TE = scene.querySelector("#TE")
-        const TEObj = scene.querySelector("#TE-obj")
+      recognition.onstart = () => {
+        output.textContent = '';
+      }
 
-        function addABA() {
-          AObj.setAttribute("material", "color", "red")
-          let divABA = document.getElementById("ABA")
-          let aba = document.createElement('a-entity')
-          aba.setAttribute("id", 'ABA-Obj')
-          aba.setAttribute("src", 'A mais o BA')
-          divABA.appendChild(aba)
-          console.log(divABA)
-          console.log("Pau no meu cu - hitstart")
+      // This event happens when you talk in the microphone
+      recognition.onresult = function(event) {
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          if (event.results[i].isFinal){
+            if (event.results[i][0].transcript.trim() == 'abacate') {
+              certo();
+              setTimeout(() => {
+                erase()
+                window.history.back();
+              }, 5000);
+              recognition.stop();
+              var marker = document.getElementById('A');
+              marker.removeEventListener('markerFound');
+            }
+            else{
+              errado();
+              setTimeout(() => {
+                erase();
+              }, 1000);
+            }
+          }
         }
-        
-        A.addEventListener("hitstart", addABA)
-
-        A.addEventListener("hitend", function () {
-          return(A.removeEventListener("hitstart", addABA))  
-        })
-
-
-        BA.addEventListener("hitstart", function () {
-
-          let divABA = document.getElementById("ABA")
-          let aba = document.getElementById("ABA-Obj")
-          divABA.removeChild(aba)
-
-          console.log("hitstart");
-        })
-        CA.addEventListener("hitstart", function () {
-          console.log("hitstart");
-      })
-        TE.addEventListener("hitstart", function () {
-          console.log("hitstart");
-      })
-
-  }
-      document.addEventListener("DOMContentLoaded", start())
-    </script>
-
+      };
+    };
+    var marker = document.getElementById('A');
+    marker.addEventListener('markerFound', ()=>{start()});
+  </script>
 </html>
