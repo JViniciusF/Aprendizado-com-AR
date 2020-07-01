@@ -1,0 +1,83 @@
+<!doctype HTML>
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
+    <script src="https://raw.githack.com/jeromeetienne/AR.js/2.2.2/aframe/build/aframe-ar.js"></script>
+  </head>
+<body>
+  <p id='output' type="text" style='display: none;'></p>
+  <a-scene embedded arjs>
+    <a-entity camera look-controls>
+      <a-image id="certo"></a-image>
+      <a-image id="errado"></a-image>
+    </a-entity>
+    
+    <a-marker id="A" type="pattern" url="https://raw.githubusercontent.com/JViniciusF/Aprendizado-com-AR/master/Palavras%20e%20Markers/Marcadores/Camisa/pattern-CA.patt">
+      <a-entity 
+      gltf-model="../../Palavras e Markers/Objetos/Camisa/scene.gltf" 
+      rotation="2 -35 0"
+      >
+      </a-entity>
+    </a-marker>
+  </a-scene>
+</body>
+  <script>
+    function certo() {
+      var certo = document.getElementById("certo");
+      var back = document.getElementById("button");
+      certo.setAttribute('src', '../../Palavras e Markers/Imagens/right.png');
+      certo.setAttribute('position', '0 0 -3');
+    };
+    function errado() {
+      var errado = document.getElementById("errado");
+      errado.setAttribute('src', '../../Palavras e Markers/Imagens/error.png');
+      errado.setAttribute('position', '0 0 -3');
+    };
+    function erase(){
+      var certo = document.getElementById("certo");
+      var errado = document.getElementById("errado");
+      certo.setAttribute('src', '');
+      certo.setAttribute('position', '0 0 0');
+      errado.setAttribute('src', '');
+      errado.setAttribute('position', '0 0 0');
+    }
+
+    function start() {
+      const recognition = new webkitSpeechRecognition();
+      recognition.interimResults = true;
+      recognition.lang = "pt-BR";
+      recognition.continuous = true;
+      recognition.start();
+
+      recognition.onstart = () => {
+        output.textContent = '';
+      }
+
+      // This event happens when you talk in the microphone
+      recognition.onresult = function(event) {
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          if (event.results[i].isFinal){
+            if (event.results[i][0].transcript.trim() == 'camisa') {
+              certo();
+              setTimeout(() => {
+                erase()
+                window.history.back();
+              }, 5000);
+              recognition.stop();
+              var marker = document.getElementById('A');
+              marker.removeEventListener('markerFound', ()=>{start()});
+            }
+            else{
+              errado();
+              setTimeout(() => {
+                erase();
+              }, 1000);
+            }
+          }
+        }
+      };
+    };
+    var marker = document.getElementById('A');
+    marker.addEventListener('markerFound', ()=>{start()});
+  </script>
+</html>
